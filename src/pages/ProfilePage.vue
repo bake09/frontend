@@ -10,8 +10,8 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label>{{ authStore.user.firstname }} {{ authStore.user.lastname  }}</q-item-label>
-            <q-item-label caption>{{ authStore.user.name }}</q-item-label>
+            <q-item-label>{{ authStore.user.name }}</q-item-label>
+            <q-item-label caption>{{ authStore.user.firstname }} {{ authStore.user.lastname  }}</q-item-label>
           </q-item-section>
         </q-item>
 
@@ -44,7 +44,12 @@
                     </template>
                   </q-file>
                   <!-- Preview -->
-                  <q-img spinner-color="blue" :src="imageUrl" style="height: auto; max-width: 80px;"/>
+                  <!-- <q-img spinner-color="blue" :src="imageUrl" style="height: auto; max-width: 80px;" @click="console.log('asd')"/> -->
+                  <q-img spinner-color="blue" :src="imageUrl" style="height: auto; max-width: 120px;" @click="console.log('asd')">
+                    <!-- <div class="row absolute-top text-center">
+                      <q-space /><q-btn icon="close" round dense/>
+                    </div> -->
+                  </q-img>
 
                   <!-- Send Button -->
                   <q-btn label="speichern" color="primary" @click="handleImageUpload" :disable="!imageUrl"/>
@@ -128,3 +133,9 @@ const handleProfileUpdate = async () => {
   await authStore.updateProfile()
 }
 </script>
+
+<style scoped>
+/* .q-img__content > div {
+  padding: 2px;
+} */
+</style>

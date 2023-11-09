@@ -25,6 +25,7 @@ module.exports = configure(function (/* ctx */) {
     boot: [
       'i18n',
       'axios',
+      'echo',
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -94,7 +95,7 @@ module.exports = configure(function (/* ctx */) {
       config: {},
 
       // iconSet: 'material-icons', // Quasar icon set
-      lang: 'de-DE', //'en-US', // Quasar language pack
+      lang: 'de',//'de-DE', //'en-US', // Quasar language pack
 
       // For special cases outside of where the auto-import strategy can have an impact
       // (like functional components as one of the examples),
@@ -104,7 +105,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['LocalStorage', 'Dialog']
+      plugins: ['LocalStorage', 'Dialog', 'AppVisibility']
     },
 
     // animations: 'all', // --- includes all animations

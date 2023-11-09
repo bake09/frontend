@@ -1,16 +1,22 @@
 <template>
   <q-page class="flex flex-center">
     <div class="scroll-area-bg" style="min-width: 500px; border: 1px solid grey; border-radius: 3px;">
-      <q-scroll-area style="height: calc(100vh - 110px); width: 100%;" class="scroll-area-bg" ref="scrollAreaRef">
+      <q-scroll-area
+        class="scroll-area-bg"
+        ref="scrollAreaRef"
+        style="height: calc(100vh - 110px); width: 100%;"
+        :thumb-style="globalStore.thumbStyle"
+        :bar-style="globalStore.barStyle"
+      >
         <div
           class="chat-item-wrapper"
-          v-for="msg in messages"
+          v-for="msg in chatStore.messages"
           :key="msg.id"
         >
           <q-chat-message
             class="q-ma-sm"
             :name="msg.sender.name"
-            :sent="msg.sender"
+            :sent="msg.sender == 1 ? true : false"
             stamp="7 minutes ago"
             :bg-color="msg.sender ? 'green-2' : 'grey-1'"
             text-color="black"
@@ -29,15 +35,18 @@
             </div>
           </q-chat-message>
         </div>
+      <q-inner-loading :showing="chatStore.isLoading" dark>
+        <q-spinner color="white" size="3em" />
+      </q-inner-loading>
       </q-scroll-area>
       <div class="q-pa-sm bg-transparent">
-        <q-input  v-model="message" placeholder="Message" dense outlined rounded ref="newMessageInputRef" @keydown.enter="sendMessage" class="col q-mr-xs" bg-color=" bg-white" style="border-radius: 28px;">
+        <q-input  v-model="chatStore.createForm.content" placeholder="Message" dense outlined rounded ref="newMessageInputRef" @keydown.enter="sendMessage" class="col q-mr-xs" bg-color=" bg-white" style="border-radius: 28px;">
           <template v-slot:prepend>
             <q-btn icon="mood" dense round flat />
           </template>
           <template v-slot:append>
-            <q-icon v-if="message !== ''" name="close" @click="clearInput" class="cursor-pointer" />
-            <q-btn icon="attach_file" dense round flat @click="message = ''" />
+            <q-icon v-if="chatStore.createForm.content !== ''" name="close" @click="clearInput" class="cursor-pointer" />
+            <q-btn icon="attach_file" dense round flat @click="chatStore.createForm.content = ''" />
           </template>
           <template v-slot:after>
             <q-btn round flat icon="send" class="bg-primary text-white" @click="sendMessage" />
@@ -50,6 +59,12 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+
+import { useGlobalStore } from "stores/global-store";
+const globalStore = useGlobalStore()
+
+import { useChatStore } from "stores/chat-store";
+const chatStore = useChatStore()
 
 const messages = ref([
   {
@@ -120,27 +135,20 @@ const messages = ref([
 const message = ref('');
 const newMessageInputRef = ref(null)
 
-const sendMessage = () => {
-  if(message.value){
-      const messageId = parseInt(messages.value.length) + 1
-      const newMessage = {
-        id: messageId,
-        content: message.value,
-        sender: true
-      }
-      messages.value.push(newMessage)
-      message.value = ''
-      newMessageInputRef.value.focus()
-      scrollAnimated()
+const sendMessage = async () => {
+  if(chatStore.createForm.content.length){
+    await chatStore.createMessage()
+    scrollAnimated()
   }
 }
 
 const clearInput = () => {
-  message.value = ''
+  chatStore.createForm.content = ''
   newMessageInputRef.value.focus()
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await chatStore.getMessages()
   scroll()
 })
 

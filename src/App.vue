@@ -2,10 +2,20 @@
   <router-view />
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { onMounted, watch } from 'vue'
 
-export default defineComponent({
-  name: 'App'
+import { useQuasar } from 'quasar'
+const $q = useQuasar()
+
+import { useAuthStore } from "stores/auth-store";
+const authStore = useAuthStore()
+
+onMounted(() => {
+  authStore.reAuthenticate()
+})
+
+watch(() => $q.appVisible, val => {
+  authStore.reAuthenticate()
 })
 </script>

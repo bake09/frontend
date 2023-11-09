@@ -65,6 +65,28 @@ const routes = [
           }
         }
       },
+      {
+        path: '/calendar',
+        component: () => import('pages/CalendarPage.vue'),
+        beforeEnter: (to, from, next) => {
+          if (isAuthenticated()) {
+            next();
+          } else {
+            next('/login');
+          }
+        }
+      },
+      {
+        path: '/quiz',
+        component: () => import('pages/QuizPage.vue'),
+        beforeEnter: (to, from, next) => {
+          if (isAuthenticated()) {
+            next();
+          } else {
+            next('/login');
+          }
+        }
+      },
     ]
   },
 

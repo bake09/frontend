@@ -54,6 +54,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async getUser(){
       await api.get('/user', this.userLoginForm).then(res => {
+        // console.log('res.data.data :>> ', res.data.data);
         LocalStorage.set('user', res.data.data)
         this.user = res.data.data
       }).catch(err => {
@@ -67,9 +68,9 @@ export const useAuthStore = defineStore('auth', {
       // })
     },
     reAuthenticate(){
-      if(!this.isLoggedIn || !this.user){
+      // if(!this.isLoggedIn || !this.user){
         this.getUser()
-      }
+      // }
     },
     logout(){
       this.authLoading = true

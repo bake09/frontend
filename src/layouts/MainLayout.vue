@@ -11,7 +11,7 @@
           @click="toggleLeftDrawer"
         />
         <q-toolbar-title>
-          intraNET Fa.Weller
+          IntraNET Fa.Weller
         </q-toolbar-title>
 
         <q-btn round dense flat>
@@ -24,36 +24,36 @@
             transition-hide="rotate"
             >
             <q-list style="min-width: 100px">
-              <q-item clickable exact to="/">
-                <q-item-section avatar>
-                  <q-icon name="home"/>
-                </q-item-section>
+              <q-item clickable v-ripple exact to="/">
+                <q-item-section avatar><q-icon name="home"/></q-item-section>
                 <q-item-section>Home</q-item-section>
               </q-item>
               <q-item clickable exact to="/users">
-                <q-item-section avatar>
-                  <q-icon name="group"/>
-                </q-item-section>
+                <q-item-section avatar><q-icon name="group"/></q-item-section>
                 <q-item-section>Users</q-item-section>
               </q-item>
-              <q-item clickable exact to="/profile" v-if="authStore.isLoggedIn">
-                <q-item-section avatar>
-                  <q-icon name="lock"/>
-                </q-item-section>
+              <q-item clickable v-ripple exact to="/profile" v-if="authStore.isLoggedIn">
+                <q-item-section avatar><q-icon name="lock"/></q-item-section>
                 <q-item-section>Profile</q-item-section>
               </q-item>
-              <q-item clickable exact to="/chat" v-if="authStore.isLoggedIn">
-                <q-item-section avatar>
-                  <q-icon name="chat"/>
-                </q-item-section>
+              <q-item clickable v-ripple exact to="/calendar" v-if="authStore.isLoggedIn">
+                <q-item-section avatar><q-icon name="calendar_month"/></q-item-section>
+                <q-item-section>Calendar</q-item-section>
+              </q-item>
+              <q-item clickable v-ripple exact to="/quiz" v-if="authStore.isLoggedIn">
+                <q-item-section avatar><q-icon name="quiz"/></q-item-section>
+                <q-item-section>Quiz</q-item-section>
+              </q-item>
+              <q-item clickable v-ripple exact to="/chat" v-if="authStore.isLoggedIn">
+                <q-item-section avatar><q-icon name="chat"/></q-item-section>
                 <q-item-section>Chat</q-item-section>
               </q-item>
               <q-separator />
-              <q-item clickable exact to="/login" v-if="!authStore.isLoggedIn">
+              <q-item clickable v-ripple exact to="/login" v-if="!authStore.isLoggedIn">
                 <q-item-section avatar><q-icon name="login" /></q-item-section>
                 <q-item-section>Login</q-item-section>
               </q-item>
-              <q-item clickable @click="authStore.logout()" v-if="authStore.isLoggedIn">
+              <q-item clickable v-ripple @click="authStore.logout()" v-if="authStore.isLoggedIn">
                 <q-item-section avatar><q-icon name="logout" /></q-item-section>
                 <q-item-section>Logout</q-item-section>
               </q-item>
@@ -70,52 +70,44 @@
     >
       <q-list>
         <q-item-label header>Menü</q-item-label>
-        <q-item clickable exact to="/">
-          <q-item-section avatar>
-            <q-icon name="home"/>
-          </q-item-section>
-          <q-item-section>
-            Home
-          </q-item-section>
+        <q-item clickable v-ripple exact to="/">
+          <q-item-section avatar><q-icon name="home"/></q-item-section>
+          <q-item-section>Home</q-item-section>
         </q-item>
 
-        <q-item clickable exact to="/users">
-          <q-item-section avatar>
-            <q-icon name="group"/>
-          </q-item-section>
-          <q-item-section>
-            Users
-          </q-item-section>
+        <q-item clickable v-ripple exact to="/users">
+          <q-item-section avatar><q-icon name="group"/></q-item-section>
+          <q-item-section>Users</q-item-section>
         </q-item>
 
-        <q-item clickable exact to="/profile" v-if="authStore.isLoggedIn">
-          <q-item-section avatar>
-            <q-icon name="lock"/>
-          </q-item-section>
-          <q-item-section>
-            Profile
-          </q-item-section>
+        <q-item clickable v-ripple exact to="/profile" v-if="authStore.isLoggedIn">
+          <q-item-section avatar><q-icon name="lock"/></q-item-section>
+          <q-item-section>Profile</q-item-section>
         </q-item>
 
-        <q-item clickable exact to="/chat" v-if="authStore.isLoggedIn">
-          <q-item-section avatar>
-            <q-icon name="chat"/>
-          </q-item-section>
-          <q-item-section>
-            Chat
-          </q-item-section>
+        <q-item clickable v-ripple exact to="/calendar" v-if="authStore.isLoggedIn">
+          <q-item-section avatar><q-icon name="calendar_month"/></q-item-section>
+          <q-item-section>Calendar</q-item-section>
         </q-item>
 
-        <q-item clickable exact to="/login" v-if="!authStore.isLoggedIn">
+        <q-item clickable v-ripple exact to="/quiz" v-if="authStore.isLoggedIn">
+          <q-item-section avatar><q-icon name="quiz"/></q-item-section>
+          <q-item-section>Quiz</q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple exact to="/chat" v-if="authStore.isLoggedIn">
+          <q-item-section avatar><q-icon name="chat"/></q-item-section>
+          <q-item-section>Chat</q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple exact to="/login" v-if="!authStore.isLoggedIn">
           <q-item-section avatar>
             <q-icon name="person"/>
           </q-item-section>
-          <q-item-section>
-            Login
-          </q-item-section>
+          <q-item-section>Login</q-item-section>
         </q-item>
 
-        <q-item clickable @click="authStore.logout()" v-if="authStore.isLoggedIn">
+        <q-item clickable v-ripple @click="authStore.logout()" v-if="authStore.isLoggedIn">
           <q-item-section avatar><q-icon name="logout" /></q-item-section>
           <q-item-section>Logout</q-item-section>
         </q-item>
